@@ -1,0 +1,7 @@
+{
+ "offset": -1.1675696267606095e+24,
+ "period": "2026-01-01..2026-03-14",
+ "r": 0.984,
+ "diffStd": 1.627109500186901e+24,
+ "note": "GEFS control 00Z analysis minus NCEP/NCAR R1 daily mean, 12 levels"
+}

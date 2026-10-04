@@ -1,0 +1,78 @@
+name: update-modes-data
+
+# Computes the climate-mode indices (observations + GEFS / CFSv2 ensemble forecasts) and
+# publishes modes.json on GitHub Pages, where the Windy plugin fetches it (Pages sends
+# `Access-Control-Allow-Origin: *`, so windy.com can read it).
+
+on:
+    schedule:
+        # GEFS 00Z reaches +384 h on AWS around 06:00 UTC
+        - cron: '10 7 * * *'
+        # CPC updates its AO/NAO/PNA/AAO GEFS forecasts around 14:00 UTC
+        - cron: '30 14 * * *'
+    workflow_dispatch:
+
+permissions:
+    contents: read
+    pages: write
+    id-token: write
+
+concurrency:
+    group: pages
+    cancel-in-progress: false
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        timeout-minutes: 60
+        defaults:
+            run:
+                working-directory: windy-plugin-climate-modes
+        steps:
+            - uses: actions/checkout@v7
+
+            - uses: actions/setup-python@v7
+              with:
+                  python-version: '3.12'
+                  cache: pip
+                  cache-dependency-path: windy-plugin-climate-modes/pipeline/requirements.txt
+
+            - run: pip install -r pipeline/requirements.txt
+
+            # ERSSTv5 / NMME files and per-file GEFS AAM values are cached between runs
+            - uses: actions/cache@v6
+              with:
+                  path: windy-plugin-climate-modes/.cache
+                  key: modes-cache-${{ github.run_id }}
+                  restore-keys: modes-cache-
+
+            # yesterday's file: sections whose source is down today keep their last values
+            - name: Previous data
+              run: |
+                  mkdir -p site
+                  curl -sfL "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/modes.json" -o site/modes.json || rm -f site/modes.json
+
+            - name: Compute indices + ensemble forecasts
+              run: python pipeline/modes_pipeline.py --out site/modes.json --cache .cache --workers 32
+
+            - name: Index page
+              run: |
+                  cat > site/index.html <<'EOF'
+                  <!doctype html><meta charset="utf-8"><title>Climate modes data</title>
+                  <p>Data for the Windy climate-modes plugin: <a href="modes.json">modes.json</a></p>
+                  EOF
+
+            - uses: actions/configure-pages@v6
+            - uses: actions/upload-pages-artifact@v5
+              with:
+                  path: windy-plugin-climate-modes/site
+
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        steps:
+            - id: deployment
+              uses: actions/deploy-pages@v5
