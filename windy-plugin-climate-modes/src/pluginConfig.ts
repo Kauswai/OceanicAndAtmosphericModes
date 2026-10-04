@@ -9,7 +9,7 @@ const config: ExternalPluginConfig = {
         'ENSO, Indian Ocean Dipole and Atlantic Niño on the map, plus AO, NAO, PNA, SAM, AAM, ' +
         'PDO, AMO and PMM graphs with GEFS / CFSv2 ensemble forecasts.',
     author: 'Kauswai',
-    repository: 'https://github.com/Kauswai/ClimateModes',
+    repository: 'https://github.com/Kauswai/OceanicAndAtmosphericModes',
     desktopUI: 'rhpane',
     desktopWidth: 460,
     mobileUI: 'fullscreen',

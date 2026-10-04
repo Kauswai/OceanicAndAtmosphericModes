@@ -84,7 +84,7 @@ The workflows live at the repository root (`.github/workflows/`) and run inside
 2. *Settings → Pages → Build and deployment → Source: **GitHub Actions***.
 3. *Actions → update-modes-data → Run workflow* (it then runs daily at 07:10 and 14:30 UTC).
    The first run downloads ~1.5 GB (GEFS, ERSST, NMME), ~10–15 min; later runs use the cache.
-4. The data is then at <https://kauswai.github.io/ClimateModes/modes.json>, which is already
+4. The data is then at <https://kauswai.github.io/OceanicAndAtmosphericModes/modes.json>, which is already
    the plugin's `DEFAULT_DATA_URL` ([src/modes.ts](src/modes.ts)). It can be changed in the
    plugin under *Data source*.
 

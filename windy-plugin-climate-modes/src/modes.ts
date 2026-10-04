@@ -3,7 +3,7 @@
  * every mode / oscillation, and helpers shared by the panel, the chart and the map layer.
  */
 
-export const DEFAULT_DATA_URL = 'https://kauswai.github.io/ClimateModes/modes.json';
+export const DEFAULT_DATA_URL = 'https://kauswai.github.io/OceanicAndAtmosphericModes/modes.json';
 
 /** Served by `npm start` (rollup dev server) from public/modes.json */
 export const DEV_DATA_URL = 'https://localhost:9999/modes.json';
