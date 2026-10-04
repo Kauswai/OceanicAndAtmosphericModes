@@ -22,12 +22,12 @@ const isServing = (process.env.SERVE || '').trim() !== 'false';
 const input = 'src/plugin.svelte';
 const out = 'plugin';
 
-/** Copies public/mjo.json (written by pipeline/mjo_pipeline.py) next to the bundle for local dev */
+/** Copies public/modes.json (written by pipeline/modes_pipeline.py) next to the bundle for local dev */
 const copyDevData = () => ({
     name: 'copy-dev-data',
     writeBundle() {
-        if (fs.existsSync('public/mjo.json')) {
-            fs.copyFileSync('public/mjo.json', 'dist/mjo.json');
+        if (fs.existsSync('public/modes.json')) {
+            fs.copyFileSync('public/modes.json', 'dist/modes.json');
         }
     },
 });
