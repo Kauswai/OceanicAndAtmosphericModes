@@ -138,6 +138,8 @@ def main():
     pdo = {'a': a, 'b': b, 'r': round(r, 3), 'points': points(pdo_field)}
 
     # ---- PMM: remove the CTI-regressed part at each point, then fit
+    # minus the 60S-60N mean so the global warming trend does not leak into the PMM
+    x = x - box_mean(x, 'glob60')[:, None, None]
     cti = box_mean(x, 'cti')
     c = cti - cti.mean()
     xm = x - np.nanmean(x, axis=0)

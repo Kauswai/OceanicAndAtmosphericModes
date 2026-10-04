@@ -11,7 +11,7 @@ Grid: lat 88 .. -88 (89 rows), lon 0 .. 358 (180 columns). Land points are NaN.
   amo      0-60N 80W-0  minus  60S-60N mean      AMO, Trenberth & Shea (2006) definition
   pdo      projection of North Pacific (20-70N) anomalies on a pattern regressed onto
            the NCEI ERSST PDO (calibrate.py)
-  pmm      projection of 21S-32N, 175E-95W anomalies with the cold-tongue (CTI) signal
+  pmm      projection of 21S-32N, 175E-95W anomalies minus the 60S-60N mean, with the cold-tongue (CTI) signal
            removed, on a pattern regressed onto the Chiang & Vimont PMM SST index
 """
 from __future__ import annotations
@@ -114,7 +114,9 @@ def compute_indices(anom: np.ndarray, patterns: dict | None) -> dict[str, np.nda
     out['amo'] = box_mean(anom, 'natl') - g
     if patterns:
         out['pdo'] = project(anom, patterns['pdo'])
-        cti = box_mean(anom, 'cti')
-        resid = anom - patterns['pmm']['beta'] * cti[..., None, None]
+        # warming-trend robust: remove the 60S-60N mean first (as for the AMO)
+        rel = anom - g[..., None, None]
+        cti = box_mean(rel, 'cti')
+        resid = rel - patterns['pmm']['beta'] * cti[..., None, None]
         out['pmm'] = project(resid, patterns['pmm'])
     return out

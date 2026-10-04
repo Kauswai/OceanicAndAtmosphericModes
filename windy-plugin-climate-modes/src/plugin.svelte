@@ -193,7 +193,7 @@
                         <label><input type="checkbox" bind:checked={showDaily} /> Daily OISST</label>
                     {/if}
                     {#if s.official}
-                        <label><input type="checkbox" bind:checked={showOfficial} /> {m.official === 'oni' ? 'ONI' : 'NCEI PDO'}</label>
+                        <label><input type="checkbox" bind:checked={showOfficial} /> {OFFICIAL_LABELS[m.official || ''] || 'Official'}</label>
                     {/if}
                     {#if m.freq === 'daily'}
                         <label><input type="checkbox" bind:checked={syncTimeline} /> Windy timeline</label>
@@ -279,6 +279,7 @@
     import type { Group, ModeDef, ModeSeries, ModesData } from './modes';
 
     const { title } = config;
+    const OFFICIAL_LABELS: Record<string, string> = { oni: 'ONI', pdo: 'NCEI PDO', pmm: 'Official PMM' };
     const MODEL_COLORS = ['#c792ea', '#7fdbca', '#f78c6c', '#82aaff', '#c3e88d', '#ffcb6b', '#ff5370'];
 
     let data: ModesData | null = null;

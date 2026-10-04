@@ -49,6 +49,7 @@ TELE = {
 }
 ONI_URL = 'https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt'
 PDO_URL = 'https://www.ncei.noaa.gov/pub/data/cmb/ersst/v5/index/ersst.v5.pdo.dat'
+PMM_URL = 'https://www.aos.wisc.edu/dvimont/MModes/RealTime/PMM.txt'
 
 DAILY_DAYS = 150
 MONTHLY_MONTHS = 60
@@ -233,6 +234,15 @@ def official_monthly(months: list[str]) -> dict:
         out['pdo'] = {'name': 'NCEI ERSSTv5 PDO', 'values': [pdo.get(m) for m in months]}
     except Exception as e:
         log(f'NCEI PDO not available: {e}')
+    try:
+        pmm = {}
+        for line in http_get(PMM_URL).text.splitlines()[1:]:
+            p = line.split()
+            if len(p) >= 3:
+                pmm[f'{int(p[0]):04d}-{int(p[1]):02d}'] = float(p[2])
+        out['pmm'] = {'name': 'Chiang & Vimont PMM (official)', 'values': [pmm.get(m) for m in months]}
+    except Exception as e:
+        log(f'Official PMM not available: {e}')
     return out
 
 

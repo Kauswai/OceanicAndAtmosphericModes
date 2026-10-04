@@ -270,7 +270,9 @@ export const MODES: ModeDef[] = [
         neutral: 'Neutral',
         description:
             'NE-Pacific subtropical SST pattern with the cold-tongue (ENSO) signal removed (Chiang & ' +
-            'Vimont 2004 scale). A positive PMM in spring often precedes El Niño. Lines at ±0.5σ, ±1σ.',
+            'Vimont 2004 scale). A positive PMM in spring often precedes El Niño. Lines at ±0.5σ, ±1σ. ' +
+            'The official index is published with a delay of several months.',
+        official: 'pmm',
     },
 ];
 

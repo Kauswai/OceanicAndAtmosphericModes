@@ -55,7 +55,7 @@ images), so a small pipeline turns them into one ~100 kB `modes.json` on GitHub 
   ice is not SST).
 - **PDO / PMM** are projections onto patterns regressed onto the official indices
   (`pipeline/calibrate.py` → `patterns.json`); PMM first removes the local regression on the
-  cold-tongue index, as in Chiang & Vimont (2004).
+  cold-tongue index, as in Chiang & Vimont (2004), after removing the 60°S–60°N mean so the warming trend does not leak in (otherwise recent values ran ~+2 too high).
 - **AMO** uses the Trenberth & Shea (2006) definition: North Atlantic 0–60°N minus the
   60°S–60°N mean, which removes the global warming trend without arbitrary detrending.
 - **AAM** = (2πa³/g) ∫∫ [u] cos²φ dφ dp on the 12 GEFS pressure levels; anomaly vs the
@@ -69,7 +69,7 @@ images), so a small pipeline turns them into one ~100 kB `modes.json` on GitHub 
 | --- | --- | --- |
 | Niño 3.4 (3-month mean) | CPC ONI 1982–2025 | 0.993 |
 | PDO | NCEI ERSSTv5 PDO 1950–2026 | 0.981 |
-| PMM | Chiang & Vimont PMM SST 1950–2026 | 0.916 |
+| PMM | Chiang & Vimont PMM SST 1950–2026 | 0.932 (0.951 since 2000) |
 | DMI | HadISST DMI (PSL) 1982–2025 | 0.822 (different SST analysis) |
 | AMO | PSL (Enfield, Kaplan SST, detrended) 1950–2023 | 0.783 (different definition) |
 
