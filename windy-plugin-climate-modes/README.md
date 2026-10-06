@@ -93,12 +93,12 @@ The workflows live at the repository root (`.github/workflows/`) and run inside
 ```bash
 npm i
 npm run data      # optional: build public/modes.json locally (Python + pipeline/requirements.txt)
-npm start         # serves https://localhost:9999/plugin.js (+ modes.json)
+npm start         # serves https://localhost:9998/plugin.js (+ modes.json)
 ```
 
-Open <https://localhost:9999/plugin.js> once and accept the self-signed certificate, then go
-to <https://www.windy.com/developer-mode> and load `https://localhost:9999/plugin.js`.
-Without a configured data URL the plugin falls back to `https://localhost:9999/modes.json`.
+Open <https://localhost:9998/plugin.js> once and accept the self-signed certificate, then go
+to <https://www.windy.com/developer-mode> and load `https://localhost:9998/plugin.js`.
+Without a configured data URL the plugin falls back to `https://localhost:9998/modes.json`.
 `python pipeline/modes_pipeline.py --skip-aam` skips the slow GEFS AAM part.
 
 On Windows use `npm run build:win` instead of `npm run build`.

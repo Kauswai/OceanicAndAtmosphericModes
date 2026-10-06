@@ -87,7 +87,8 @@ export default {
             serve({
                 contentBase: 'dist',
                 host: '0.0.0.0',
-                port: 9999,
+                // 9998 so it can run next to the MJO plugin (9999); PORT overrides
+                port: Number(process.env.PORT) || 9998,
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                 },

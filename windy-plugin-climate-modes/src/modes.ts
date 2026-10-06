@@ -6,7 +6,7 @@
 export const DEFAULT_DATA_URL = 'https://kauswai.github.io/OceanicAndAtmosphericModes/modes.json';
 
 /** Served by `npm start` (rollup dev server) from public/modes.json */
-export const DEV_DATA_URL = 'https://localhost:9999/modes.json';
+export const DEV_DATA_URL = 'https://localhost:9998/modes.json';
 
 const DATA_URL_STORAGE_KEY = 'windy-plugin-climate-modes:data-url';
 
