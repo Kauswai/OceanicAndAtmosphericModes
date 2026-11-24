@@ -18,6 +18,7 @@ on:
             - 'windy-plugin-climate-modes/src/**'
             - 'windy-plugin-climate-modes/package.json'
             - 'windy-plugin-climate-modes/rollup.config.js'
+            - '.github/workflows/update-modes-data.yml'
 
 permissions:
     contents: read
